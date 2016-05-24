@@ -1,0 +1,10 @@
+# Site settings
+title: greenify.life
+email: smayres@gmail.com
+description: greenify.life
+baseurl: ""
+blogurl: ""
+url: "http://greenify.life"
+
+# Build settings
+markdown: kramdown

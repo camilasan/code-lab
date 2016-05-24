@@ -1,0 +1,12 @@
+---
+layout: page
+---
+{% for post in site.posts %}
+  <div class="col-sm-3 box-green box">
+    <small>{{ post.date | date: "%d.%m.%Y" }}</small><br>
+    <p><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></p>
+  </div>
+{% endfor %}
+<div class="clearfix"></div>
+<div class="clearfix"></div>
+

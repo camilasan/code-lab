@@ -1,0 +1,9 @@
+# temp files and etc #
+###################
+*.cpp~
+*.c~
+*.h~
+*.txt~
+*.kdev4
+*.o
+*.so

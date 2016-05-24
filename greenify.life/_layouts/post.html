@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  {% include head.html %}
+  <body>
+    <div class="main">
+      <div class="grad">
+	{% include header.html %}
+	{% include nav.html %}    
+      </div>
+      <div class="container">
+	<span>{{ page.date | date: " %B %-d, %Y" }} {% if page.author %} | {{ page.author }}{% endif %}{% if page.meta %} | {{ page.meta }}{% endif %}</span>
+	<h2>{{ page.title }}</h2>
+	{% include content.html %}  
+      </div>      
+    </div>
+    {% include footer.html %}       
+    {% include scripts.html %}   
+  </body>
+</html>

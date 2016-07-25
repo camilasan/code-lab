@@ -1,0 +1,11 @@
+{
+  "name": "eva",
+  "version": "1.0.0",
+  "description": "Eva - A program language written in JS",
+  "main": "eva.js",
+  "author": "Camila Ayres _hello@camila.codes",
+  "license": "TBA",
+  "bin": {
+	"eva": "eva.js"
+  }
+}

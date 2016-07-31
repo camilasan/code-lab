@@ -77,17 +77,19 @@ var Eva = {
 		console.log(stream);		
 	},
 	init: function(args){
-		var path = Extras.file.path(args);
-		var stream = Extras.file.open(path);
+		var extras = Object.create(Extras),
+			path = extras.file.path(args),
+			stream = extras.file.open(path);
 		if(stream) {
 			this.processStream(stream);		
 		}else{
-			Extras.error.logAndExit();
+			extras.error.logAndExit();
 		}
 	}
 };
 
-Eva.init(process.argv);
+var eva = Object.create(Eva);
+eva.init(process.argv);
 
 
 

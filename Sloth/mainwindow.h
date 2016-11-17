@@ -28,15 +28,21 @@ private:
     Ui::MainWindow *ui;
     QOpenGLShaderProgram *m_shader;
 
+
+    GLuint mVertexArrayBackgroundId;
     GLuint mVertexArrayId;
     GLuint mVertexArrayColorId;
+    GLuint mVertexArrayAlphaId;
 
-    GLuint attributePosition;
-    GLuint attributeColor;
-    GLuint attributeAlpha;
 
-    GLuint mVertexBuffer;
+    GLuint mBackgroundBuffer;
+
+    GLuint mVertexBuffer1;
+    GLuint mVertexBuffer2;
+    GLuint mVertexBuffer3;
+
     GLuint mColorBuffer;
+    GLuint mAlphaBuffer;
 
     GLint uniformColor;
 };

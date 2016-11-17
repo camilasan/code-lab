@@ -46,17 +46,13 @@ void MainWindow::initializeGL(){
 
     static const GLfloat gVertexBufferBkgData[] =
     {
-        -0.95f, -0.95f, 0.0f,
-        0.95f, -0.95f, 0.0f,
-        -0.95f,  -0.95f, 0.0f,
+        -1.0f, -1.0f, 0.0f,
+        1.0f, -1.0f, 0.0f,
+        -1.0f,  1.0f, 0.0f,
 
-         0.95f, 0.95f, 0.0f,
-         -0.95f, 0.95f, 0.0f,
-         0.95f,  0.95f, 0.0f
-
-        -1.50f, -1.50f, 0.0f,
-        1.50f, -1.50f, 0.0f,
-        -1.50f,  -1.50f, 0.0f
+        1.0f, 1.0f, 0.0f,
+        -1.0f, 1.0f, 0.0f,
+        1.0f,  -1.0f, 0.0f,
     };
 
     static const GLfloat gVertexBufferData1[] =
@@ -119,6 +115,19 @@ void MainWindow::paintGL(){
     glBindBuffer(GL_ARRAY_BUFFER, mColorBuffer);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
+    //Set Background triangles - Mask
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, mBackgroundBuffer);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 1, 3);
+
+    // Set colors
+    glEnableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, mColorBuffer);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
     // Set triangles - this would be the plots
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer1);
@@ -135,16 +144,6 @@ void MainWindow::paintGL(){
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 0, (void *)0);
 
     glDrawArrays(GL_TRIANGLES, 0, 3);
-
-    // Set Background triangles - Mask
-//    glEnableVertexAttribArray(0);
-//    glBindBuffer(GL_ARRAY_BUFFER, mBackgroundBuffer);
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
-
-//    glDrawArrays(GL_TRIANGLES, 0, 3);
-//    glDrawArrays(GL_TRIANGLES, 1, 3);
-//    glDrawArrays(GL_TRIANGLES, 2, 3);
-
 
 
     m_shader->release();

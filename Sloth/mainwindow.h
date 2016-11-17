@@ -29,13 +29,13 @@ private:
     QOpenGLShaderProgram *m_shader;
 
 
-    GLuint mVertexArrayBackgroundId;
+    GLuint mVertexArrayMaskId;
     GLuint mVertexArrayId;
     GLuint mVertexArrayColorId;
     GLuint mVertexArrayAlphaId;
 
 
-    GLuint mBackgroundBuffer;
+    GLuint mMaskBuffer;
 
     GLuint mVertexBuffer1;
     GLuint mVertexBuffer2;

@@ -113,6 +113,21 @@ void MainWindow::paintGL(){
     glBindBuffer(GL_ARRAY_BUFFER, mColorBuffer);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
+
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
+    glClear(GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_STENCIL_TEST);
+    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+    glDepthMask(GL_FALSE);
+    glStencilFunc(GL_NEVER, 1, 0xFF);
+    glStencilOp(GL_REPLACE, GL_KEEP, GL_KEEP);  // draw 1s on test fail (always)
+
+    // draw stencil pattern
+    glStencilMask(0xFF);
+    glClear(GL_STENCIL_BUFFER_BIT);  // needs mask=0xFF
+
     //Set Background triangles - Mask
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, mBackgroundBuffer);
@@ -120,6 +135,13 @@ void MainWindow::paintGL(){
 
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glDrawArrays(GL_TRIANGLES, 1, 3);
+
+    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+    glDepthMask(GL_TRUE);
+    glStencilMask(0x00);
+
+    // draw only where stencil's value is 1
+    glStencilFunc(GL_EQUAL, 1, 0xFF);
 
     // Set triangles - this would be the plots
     glEnableVertexAttribArray(0);
@@ -137,6 +159,9 @@ void MainWindow::paintGL(){
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 0, (void *)0);
 
     glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    glDisable(GL_STENCIL_TEST);
+
 
 
     m_shader->release();

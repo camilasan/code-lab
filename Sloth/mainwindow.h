@@ -28,12 +28,13 @@ private:
     Ui::MainWindow *ui;
     QOpenGLShaderProgram *m_shader;
 
-
     GLuint mVertexArrayMaskId;
     GLuint mVertexArrayId;
     GLuint mVertexArrayColorId;
     GLuint mVertexArrayAlphaId;
 
+    GLuint mVertexArrayQuadId;
+    GLuint mQuadBuffer;
 
     GLuint mMaskBuffer;
 

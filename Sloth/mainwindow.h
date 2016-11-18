@@ -31,6 +31,7 @@ private:
     GLuint mVertexArrayMaskId;
     GLuint mVertexArrayId;
     GLuint mVertexArrayColorId;
+    GLuint mVertexArrayGreyColorId;
     GLuint mVertexArrayAlphaId;
 
     GLuint mVertexArrayQuadId;
@@ -44,8 +45,9 @@ private:
 
     GLuint mColorBuffer;
     GLuint mAlphaBuffer;
-
     GLint uniformColor;
+
+    GLuint mGreyColorBuffer;
 };
 
 #endif // MAINWINDOW_H

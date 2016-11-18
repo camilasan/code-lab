@@ -25,6 +25,10 @@ MainWindow::~MainWindow()
 
     glDeleteVertexArrays(1, &mVertexArrayColorId);
     glDeleteBuffers(1, &mColorBuffer);
+
+
+    glDeleteVertexArrays(1, &mVertexArrayGreyColorId);
+    glDeleteBuffers(1, &mGreyColorBuffer);
     delete ui;
 }
 
@@ -100,10 +104,15 @@ void MainWindow::initializeGL(){
 
 
     static const GLfloat g_color_buffer_data[] = {
-        1.0f,  0.500f,  0.200f,
-        0.200f, 0.800f,  0.500f,
-        0.500f,  0.200f,  0.800f
+        0.12f,  0.12f,  1.0f,
+        0.35f,  0.35f,  1.0f,
+        0.75f,  0.45f,  1.0f,
     };
+
+    static const GLfloat g_color_grey_buffer_data[] = {
+        1.0f,  1.0f,  1.0f
+    };
+
 
     glGenBuffers(1, &mMaskBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, mMaskBuffer);
@@ -128,12 +137,16 @@ void MainWindow::initializeGL(){
     glGenBuffers(1, &mColorBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, mColorBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+
+    glGenBuffers(1, &mGreyColorBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, mGreyColorBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_grey_buffer_data), g_color_grey_buffer_data, GL_STATIC_DRAW);
 }
 
 void MainWindow::paintGL(){
 
     // Clear the colorbuffer
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
     // Bind our shader
@@ -169,6 +182,11 @@ void MainWindow::paintGL(){
     glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
     glStencilMask(0x00);
     glDisable(GL_DEPTH_TEST);
+
+        // Set colors
+        glEnableVertexAttribArray(1);
+        glBindBuffer(GL_ARRAY_BUFFER, mGreyColorBuffer);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
         // Triangles
         glEnableVertexAttribArray(0);

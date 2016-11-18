@@ -23,5 +23,5 @@ RESOURCES += \
     resources.qrc
 
 DISTFILES += \
-    line_fp.glsl \
-    line_vp.glsl
+    mask_fp.glsl \
+    mask_vp.glsl

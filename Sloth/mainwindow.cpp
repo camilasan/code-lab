@@ -50,8 +50,8 @@ void MainWindow::initializeGL(){
     glBindVertexArray(mVertexArrayColorId);
 
     m_shader = new QOpenGLShaderProgram(this);
-    m_shader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/line_fp.glsl");
-    m_shader->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/line_vp.glsl");
+    m_shader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/mask_fp.glsl");
+    m_shader->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/mask_vp.glsl");
 
     if(m_shader->link()) qDebug() << "Shader linked.";
 

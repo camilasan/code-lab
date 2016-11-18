@@ -55,8 +55,8 @@ OBJECTS       = main.o \
 		mainwindow.o \
 		qrc_resources.o \
 		moc_mainwindow.o
-DIST          = line_fp.glsl \
-		line_vp.glsl \
+DIST          = mask_fp.glsl \
+		mask_vp.glsl \
 		/home/camila/Qt/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/camila/Qt/5.7/gcc_64/mkspecs/common/unix.conf \
 		/home/camila/Qt/5.7/gcc_64/mkspecs/common/linux.conf \
@@ -574,8 +574,8 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
 		/home/camila/Qt/5.7/gcc_64/bin/rcc \
-		line_vp.glsl \
-		line_fp.glsl
+		mask_vp.glsl \
+		mask_fp.glsl
 	/home/camila/Qt/5.7/gcc_64/bin/rcc -name resources resources.qrc -o qrc_resources.cpp
 
 compiler_moc_header_make_all: moc_mainwindow.cpp

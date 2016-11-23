@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>mask_fp.glsl</file>
+        <file>mask_vp.glsl</file>
+    </qresource>
+</RCC>

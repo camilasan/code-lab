@@ -37,6 +37,9 @@ private:
     GLuint mVertexArrayQuadId;
     GLuint mQuadBuffer;
 
+    GLuint mVertexArrayQuadId2;
+    GLuint mQuadBuffer2;
+
     GLuint mMaskBuffer;
 
     GLuint mVertexBuffer1;

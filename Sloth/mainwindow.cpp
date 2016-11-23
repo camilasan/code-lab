@@ -47,6 +47,9 @@ void MainWindow::initializeGL(){
     glGenVertexArrays(1, &mVertexArrayQuadId);
     glBindVertexArray(mVertexArrayQuadId);
 
+    glGenVertexArrays(1, &mVertexArrayQuadId2);
+    glBindVertexArray(mVertexArrayQuadId2);
+
     glGenVertexArrays(1, &mVertexArrayId);
     glBindVertexArray(mVertexArrayId);
 
@@ -81,6 +84,14 @@ void MainWindow::initializeGL(){
         0.70f,  -0.50f, 0.0f,
     };
 
+    static const GLfloat gVertexBufferQuadData2[] =
+    {
+        -0.70f, 0.50f, 0.0f,
+        0.0f, 0.50f, 0.0f,
+        -0.35f,  0.70f, 0.0f
+    };
+
+
     static const GLfloat gVertexBufferData1[] =
     {
         -0.85f, -0.25f, 0.0f, //lower left
@@ -97,9 +108,9 @@ void MainWindow::initializeGL(){
 
     static const GLfloat gVertexBufferData3[] =
     {
-        -0.25f, -0.75f, 0.0f, //lower left
-        0.25f, -0.75f, 0.0f, //lower right
-        0.0f, 0.50f, 0.0f, //top
+        -0.40f, 0.0f, 0.0f, //lower left
+        0.0f, 0.0f, 0.0f, //lower right
+        -0.20f, 1.0f, 0.0f, //top
     };
 
 
@@ -121,6 +132,10 @@ void MainWindow::initializeGL(){
     glGenBuffers(1, &mQuadBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, mQuadBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(gVertexBufferQuadData), gVertexBufferQuadData, GL_STATIC_DRAW);
+
+    glGenBuffers(1, &mQuadBuffer2);
+    glBindBuffer(GL_ARRAY_BUFFER, mQuadBuffer2);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(gVertexBufferQuadData2), gVertexBufferQuadData2, GL_STATIC_DRAW);
 
     glGenBuffers(1, &mVertexBuffer1);
     glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer1);
@@ -157,8 +172,7 @@ void MainWindow::paintGL(){
     glBindBuffer(GL_ARRAY_BUFFER, mColorBuffer);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-    //Set Background triangles - Mask
-
+    // Stencil area
     glStencilMask(0x00);
 
         // Area where we want things to show up
@@ -169,17 +183,16 @@ void MainWindow::paintGL(){
         glDrawArrays(GL_TRIANGLES, 1, 3);
 
 
-    glStencilFunc(GL_ALWAYS, 1, 0xFF);
-    glStencilMask(0xFF);
-
-        // Mask
+        // Area where we want things to show up
         glEnableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, mMaskBuffer);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
+        glBindBuffer(GL_ARRAY_BUFFER, mQuadBuffer2);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 0, (void *)0);
         glDrawArrays(GL_TRIANGLES, 0, 3);
-        glDrawArrays(GL_TRIANGLES, 1, 3);
 
-    glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+
+    glStencilFunc(GL_ALWAYS , 1, 0xFF);
+
+    // Stencil area content
     glStencilMask(0x00);
     glDisable(GL_DEPTH_TEST);
 
@@ -193,16 +206,26 @@ void MainWindow::paintGL(){
         glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer1);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 0, (void *)0);
         glDrawArrays(GL_TRIANGLES, 0, 3);
-        glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer2);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 0, (void *)0);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
         glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer3);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 0, (void *)0);
         glDrawArrays(GL_TRIANGLES, 0, 3);
+        glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer2);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 0, (void *)0);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
 
     glStencilMask(0xFF);
     glEnable(GL_DEPTH_TEST);
 
+
+    // Mask
+    glStencilMask(0xFF);
+        glEnableVertexAttribArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER, mMaskBuffer);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_TRIANGLES, 1, 3);
+    glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
 
     m_shader->release();
 }

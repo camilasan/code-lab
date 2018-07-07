@@ -1,0 +1,7 @@
+{
+  "requires": true,
+  "dependencies": {
+    "diff": "^3.5.0",
+    "npm": "^6.1.0"
+  }
+}

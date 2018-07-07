@@ -1,0 +1,29 @@
+<div id="app">
+    <div>
+        <input type="text" v-model="name"></input><br>
+        <br>
+        <textarea rows="4" cols="50" v-model="description"></textarea><br>
+        <br>
+        <button v-on:click="add" v-if="!enough">add</button>
+    </div>
+    <br>
+    <button v-on:click="process">process</button>
+
+    <h3>Producs added:</h3>
+    <ul v-for="product in products">
+        <li>{{ product.name }}</li>
+    </ul>
+
+<!--    <h3>Results</h3>
+    <ul v-for="result in results">
+        <li>
+            <b>{{ result.name }}</b>: {{ result.description }}
+        </li>
+
+    </ul>-->
+    <div v-html="diff"></div>
+</div>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="node_modules/diff/dist/diff.js"></script>
+<script src="main.js"></script>

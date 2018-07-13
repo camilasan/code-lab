@@ -5,41 +5,50 @@ var app = new Vue({
     data: {
         products: [],
         name: "",
-        description: "",
+        incilist: "",
         enough: false,
+        diff: false,
         results: [],
-        diff: "",
+        unifiedDiff: "",
+        done: false,
+        partialDone: false,
     },
     methods: {
         add() {
             this.products.push(
             {
                 name: this.name,
-                description: this.description,
+                incilist: this.incilist,
             });
             this.name = "";
-            this.description = "";
-            if(this.products.length == 2)
+            this.incilist = "";
+            if(this.products.length == 2){
                 this.enough = true;
+                this.diff = true;
+            }
+            this.partialDone = true;
         },
         process() {
-            this.results = Array.from(this.products);
-
-            var diff = JsDiff.diffWords(this.products[0].description, this.products[1].description),
-                color = "";
+            var diff = JsDiff.diffWords(this.products[0].incilist, this.products[1].incilist),
+                unifiedDiff = "",
+                that = this,
+                productsOutput = Array.from(that.products);
 
             diff.forEach(function(part){
                 // green for additions, red for deletions
                 // grey for common parts
-                console.log(part);
 
-                color = part.added ? 'green' :
-                part.removed ? 'red' : 'grey';
+                var color = part.added ? 'green' : part.removed ? 'red' : 'grey';
 
-                diff = diff + "<span style='color:" + color + "'>" + part.value + "</span>";
+                productsOutput[0].incilist = that.products[0].incilist.replace(part.value, "<span style='color:" + color + "'>" + part.value + "</span>");
+                productsOutput[1].incilist = that.products[1].incilist.replace(part.value, "<span style='color:" + color + "'>" + part.value + "</span>");
+
+                unifiedDiff = unifiedDiff + "<span style='color:" + color + "'>" + part.value + "</span> ";
             });
 
-            this.diff = diff;
+            this.products = productsOutput;
+            this.unifiedDiff = unifiedDiff;
+            this.done = true;
         },
     },
 });

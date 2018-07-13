@@ -1,0 +1,24 @@
+body {
+    width: 100%;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+input,
+textarea {
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+button {
+    float: right;
+    width: 40%;
+    margin: 0 0 0 10%;
+}
+
+div#app {
+    width: 30%;
+    margin: 0 auto;
+}
